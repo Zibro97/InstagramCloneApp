@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -83,7 +82,7 @@ class AddPhotoActivity : AppCompatActivity() {
             contentDTO.explain = addphoto_edit_explain.text.toString()
 
             /*timestamp 넣기*/
-            contentDTO.timeStamp = System.currentTimeMillis()
+            contentDTO.timestamp = System.currentTimeMillis()
 
             fireStore?.collection("images")?.document()?.set(contentDTO)
 
