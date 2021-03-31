@@ -15,15 +15,11 @@ import com.zibroit.instagramclone.navigation.model.ContentDTO
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
-class DetailViewFragment : Fragment() {
-    var firestore: FirebaseFirestore? = null
-    var uid: String? = null
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_detail, container, false)
+class DetailViewFragment : Fragment(){
+    var firestore : FirebaseFirestore? = null
+    var uid : String? = null
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_detail,container,false)
         firestore = FirebaseFirestore.getInstance()
         uid = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -31,32 +27,28 @@ class DetailViewFragment : Fragment() {
         view.detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(activity)
         return view
     }
-
-    inner class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var contentDTOs: ArrayList<ContentDTO> = arrayListOf()
-        var contentUidList: ArrayList<String> = arrayListOf()
+    inner class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+        var contentDTOs : ArrayList<ContentDTO> = arrayListOf()
+        var contentUidList : ArrayList<String> = arrayListOf()
 
         init {
+            firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                contentDTOs.clear()
+                contentUidList.clear()
+                //Sometimes, This code return null of querySnapshot when it signout
+                if(querySnapshot == null) return@addSnapshotListener
 
-
-            firestore?.collection("images")?.orderBy("timestamp")
-                ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                    contentDTOs.clear()
-                    contentUidList.clear()
-                    //Sometimes, This code return null of querySnapshot when it signout
-                    if (querySnapshot == null) return@addSnapshotListener
-
-                    for (snapshot in querySnapshot!!.documents) {
-                        var item = snapshot.toObject(ContentDTO::class.java)
-                        contentDTOs.add(item!!)
-                        contentUidList.add(snapshot.id)
-                    }
-                    notifyDataSetChanged()
+                for(snapshot in querySnapshot!!.documents){
+                    var item = snapshot.toObject(ContentDTO::class.java)
+                    contentDTOs.add(item!!)
+                    contentUidList.add(snapshot.id)
                 }
+                notifyDataSetChanged()
+            }
         }
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
-            var view = LayoutInflater.from(p0.context).inflate(R.layout.item_detail, p0, false)
+            var view = LayoutInflater.from(p0.context).inflate(R.layout.item_detail,p0,false)
             return CustomViewHolder(view)
         }
 
@@ -73,15 +65,13 @@ class DetailViewFragment : Fragment() {
             viewholder.detailviewitem_profile_textview.text = contentDTOs!![p1].userId
 
             //Image
-            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl)
-                .into(viewholder.detailviewitem_imageview_content)
+            Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl).into(viewholder.detailviewitem_imageview_content)
 
             //Explain of content
             viewholder.detailviewitem_explain_textview.text = contentDTOs!![p1].explain
 
             //likes
-            viewholder.detailviewitem_favoritecounter_textview.text =
-                "Likes " + contentDTOs!![p1].favoriteCount
+            viewholder.detailviewitem_favoritecounter_textview.text = "Likes " + contentDTOs!![p1].favoriteCount
 
             //This code is when the button is clicked
             viewholder.detailviewitem_favorite_imageview.setOnClickListener {
@@ -89,23 +79,29 @@ class DetailViewFragment : Fragment() {
             }
 
             //This code is when the page is loaded
-            if (contentDTOs!![p1].favorites.containsKey(uid)) {
+            if(contentDTOs!![p1].favorites.containsKey(uid)){
                 //This is like status
                 viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite)
-
-            } else {
+            }else{
                 //This is unlike status
                 viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite_border)
             }
+
+            /*this code is */
+            viewholder.detailviewitem_profile_image.setOnClickListener {
+                var fragment = UserFragment()
+                var bundle = Bundle()
+                bundle.putString("destinationUid",contentDTOs[p1].uid)
+                bundle.putString("userId",contentDTOs[p1].userId)
+                fragment.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content,fragment)?.commit()
+            }
         }
 
-        fun favoriteEvent(position: Int) {
+        fun favoriteEvent(position : Int) {
             var tsDoc = firestore?.collection("images")?.document(contentUidList[position])
             firestore?.runTransaction { transaction ->
-
-
                 var contentDTO = transaction.get(tsDoc!!).toObject(ContentDTO::class.java)
-
                 if (contentDTO!!.favorites.containsKey(uid)) {
                     //When the button is clicked
                     contentDTO?.favoriteCount = contentDTO?.favoriteCount - 1
