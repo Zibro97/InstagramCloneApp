@@ -133,7 +133,6 @@ class DetailViewFragment : Fragment(){
             FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
 
             var message = FirebaseAuth.getInstance()?.currentUser?.email + getString(R.string.alarm_favorite)
-            FcmPush.instance.sendMessage(destinationUid,"Howlstagram",message)
         }
     }
 }
