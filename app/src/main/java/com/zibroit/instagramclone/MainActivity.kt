@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onStop() {
         super.onStop()
-        FcmPush.instance.sendMessage("u4c16fNBQ1SKXblzZhXOibrgiG32","hi","bye")
+//        FcmPush.instance.sendMessage("u4c16fNBQ1SKXblzZhXOibrgiG32","hi","bye")
     }
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         setToolbarDefault()

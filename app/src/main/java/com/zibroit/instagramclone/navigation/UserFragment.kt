@@ -90,7 +90,7 @@ class UserFragment : Fragment(){
                 fragmentView?.account_tv_following_count?.text = followDTO?.followingCount?.toString()
             }
             if(followDTO?.followerCount != null) {
-                fragmentView?.account_btn_follow_signout?.text = followDTO?.followerCount?.toString()
+                fragmentView?.account_tv_following_count?.text = followDTO?.followerCount?.toString()
                 if(followDTO?.followers.containsKey(currentUserUid!!)){
                     fragmentView?.account_btn_follow_signout?.text = getString(R.string.follow_cancel)
                     fragmentView?.account_btn_follow_signout?.background?.setColorFilter(ContextCompat.getColor(activity!!,R.color.colorLightGray),PorterDuff.Mode.MULTIPLY)
