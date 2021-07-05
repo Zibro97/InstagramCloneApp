@@ -1,15 +1,12 @@
 package com.zibroit.instagramclone.navigation
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,14 +16,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.zibroit.instagramclone.LoginActivity
 import com.zibroit.instagramclone.MainActivity
 import com.zibroit.instagramclone.R
 import com.zibroit.instagramclone.navigation.model.AlarmDTO
 import com.zibroit.instagramclone.navigation.model.ContentDTO
 import com.zibroit.instagramclone.navigation.model.FollowDTO
-import com.zibroit.instagramclone.navigation.util.FcmPush
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user.view.*
 
