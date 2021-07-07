@@ -15,10 +15,10 @@ Firebase Messaging 라이브러리를 이용하여 유저의 토큰을 Firebase�
 <a href="https://inf.run/bKW7">https://inf.run/bKW7</a>
 
 ### 실행 화면
-![initial](https://user-images.githubusercontent.com/60098124/124765153-a86d5200-df70-11eb-80f6-e1db8698f884.jpg)
-![feed](https://user-images.githubusercontent.com/60098124/124765169-ac00d900-df70-11eb-9295-6eb95bfe55a9.jpg)
-![search](https://user-images.githubusercontent.com/60098124/124765177-adca9c80-df70-11eb-9595-4ca4cd6ddba7.jpg)
-![favorite](https://user-images.githubusercontent.com/60098124/124765197-b15e2380-df70-11eb-8825-65025b059b7c.jpg)
-![mypage](https://user-images.githubusercontent.com/60098124/124765187-b02cf680-df70-11eb-96bb-f4169200ef73.jpg)
+![initial](https://user-images.githubusercontent.com/60098124/124765153-a86d5200-df70-11eb-80f6-e1db8698f884.jpg) {: width="100" height="100"}
+![feed](https://user-images.githubusercontent.com/60098124/124765169-ac00d900-df70-11eb-9295-6eb95bfe55a9.jpg) {: width="100" height="100"}
+![search](https://user-images.githubusercontent.com/60098124/124765177-adca9c80-df70-11eb-9595-4ca4cd6ddba7.jpg) {: width="100" height="100"}
+![favorite](https://user-images.githubusercontent.com/60098124/124765197-b15e2380-df70-11eb-8825-65025b059b7c.jpg) {: width="100" height="100"}
+![mypage](https://user-images.githubusercontent.com/60098124/124765187-b02cf680-df70-11eb-96bb-f4169200ef73.jpg) {: width="100" height="100"}
 
 
